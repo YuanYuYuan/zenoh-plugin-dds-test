@@ -1,4 +1,4 @@
-# Zenoh bridge DDS Testbed
+# Zenoh Plugin DDS Testbed
 
 ## Build the image
 
