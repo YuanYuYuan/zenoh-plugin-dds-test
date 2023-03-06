@@ -1,0 +1,41 @@
+version: '0.1.0'
+services:
+  agent:
+    build:
+      dockerfile: ./dockers/agent/Dockerfile
+    image: agent
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    entrypoint: /opt/scripts/agent.sh
+    volumes:
+      - ./scripts:/opt/scripts
+    networks:
+      - local
+      # local:
+      #   ipv4_address: 192.168.0.2
+  core:
+    image: agent
+    stdin_open: true
+    tty: true
+    entrypoint: /opt/scripts/core.sh
+    volumes:
+      - ./scripts:/opt/scripts
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    networks:
+      local:
+        ipv4_address: 192.168.0.2
+
+networks:
+  local:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.1/16
