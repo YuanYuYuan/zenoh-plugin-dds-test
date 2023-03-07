@@ -1,5 +1,5 @@
 # Ref: https://gist.github.com/terrychan999/15114a0bf5da9cb8f636115602249be6
-deb http://free.nchc.org.tw/ubuntu/ focal main restricted universe multiverse
-deb http://free.nchc.org.tw/ubuntu/ focal-updates main restricted universe multiverse
-deb http://free.nchc.org.tw/ubuntu/ focal-security main restricted universe multiverse
-deb http://free.nchc.org.tw/ubuntu/ focal-backports main restricted universe multiverse
+deb http://free.nchc.org.tw/ubuntu/ jammy main restricted universe multiverse
+deb http://free.nchc.org.tw/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://free.nchc.org.tw/ubuntu/ jammy-security main restricted universe multiverse
+deb http://free.nchc.org.tw/ubuntu/ jammy-backports main restricted universe multiverse

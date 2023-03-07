@@ -1,4 +1,4 @@
-FROM osrf/ros:galactic-desktop
+FROM osrf/ros:humble-desktop
 
 ARG DEBIAN_FRONTEND=noninteractive
 
