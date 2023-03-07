@@ -3,7 +3,7 @@
 ## Build the image
 
 ```bash
-docker-compose build
+docker compose build
 ```
 
 
@@ -14,7 +14,7 @@ Terminal 1
 Launch one core and 32 agents
 
 ```bash
-docker-compose up --scale agent=32
+docker compose up --scale agent=32
 ```
 
 Terminal 2
@@ -28,5 +28,5 @@ docker stats
 ## Stop the test
 
 ```bash
-docker-compose down
+docker compose down
 ```
