@@ -1,8 +1,32 @@
 version: '0.1.0'
 services:
+  ros-base:
+    build:
+      dockerfile: ./dockers/ros-base.dockerfile
+    image: ros-base
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    entrypoint: bash
+    network_mode: host
+  ros-and-rust:
+    build:
+      dockerfile: ./dockers/ros-and-rust.dockerfile
+    image: ros-and-rust
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    entrypoint: bash
+    network_mode: host
   agent:
     build:
-      dockerfile: ./dockers/agent/Dockerfile
+      dockerfile: ./dockers/agent.dockerfile
     image: agent
     stdin_open: true
     tty: true
@@ -10,32 +34,80 @@ services:
       - DISPLAY=$DISPLAY
       - QT_X11_NO_MITSHM=1
     privileged: true
-    entrypoint: /opt/scripts/agent.sh
+    # entrypoint: /opt/workspace/scripts/agent.sh
+    entrypoint: bash
     volumes:
-      - ./scripts:/opt/scripts
-    networks:
-      - local
-      # local:
-      #   ipv4_address: 192.168.0.2
+      - .:/opt/workspace
+    network_mode: host
+    working_dir: /opt/workspace
+    # networks:
+    #   - local
+    #   # local:
+    #   #   ipv4_address: 192.168.0.2
   core:
     image: agent
     stdin_open: true
     tty: true
-    entrypoint: /opt/scripts/core.sh
+    entrypoint: /opt/workspace/scripts/core.sh
     volumes:
-      - ./scripts:/opt/scripts
+      - .:/opt/workspace
     environment:
       - DISPLAY=$DISPLAY
       - QT_X11_NO_MITSHM=1
     privileged: true
-    networks:
-      local:
-        ipv4_address: 192.168.1.2
+    network_mode: host
+    working_dir: /opt/workspace
+    # networks:
+    #   local:
+    #     ipv4_address: 192.168.1.2
 
-networks:
-  local:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.0.1/16
+  dev:
+    build:
+      dockerfile: ./dockers/dev.dockerfile
+    image: dev
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    volumes:
+      - .:/home/user/workspace/zenoh-bridge-dds-test
+    network_mode: host
+    working_dir: /home/user/workspace/zenoh-bridge-dds-test
+    entrypoint: /home/user/workspace/zenoh-bridge-dds-test/scripts/dev.sh
+    # networks:
+    #   - local
+    #   # local:
+    #   #   ipv4_address: 192.168.0.2
+  zenoh-build:
+    build:
+      dockerfile: ./dockers/zenoh-test.dockerfile
+
+  zenoh-bridge-dds-router:
+    build:
+      dockerfile: ./dockers/zenoh-bridge-dds-router.dockerfile
+    image: zenoh-bridge-dds-router
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    entrypoint: /opt/workspace/scripts/zenoh-bridge-dds-router.sh
+    volumes:
+      - .:/opt/workspace
+    network_mode: host
+    working_dir: /opt/workspace
+    # networks:
+    #   - local
+    #   # local:
+    #   #   ipv4_address: 192.168.0.2
+
+# networks:
+#   local:
+#     driver: bridge
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 192.168.0.1/16
