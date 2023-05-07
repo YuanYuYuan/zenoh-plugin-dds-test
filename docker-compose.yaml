@@ -15,6 +15,8 @@ services:
   ros-and-rust:
     build:
       dockerfile: ./dockers/ros-and-rust.dockerfile
+    depends_on:
+      - ros-base
     image: ros-and-rust
     stdin_open: true
     tty: true
@@ -24,47 +26,12 @@ services:
     privileged: true
     entrypoint: bash
     network_mode: host
-  agent:
-    build:
-      dockerfile: ./dockers/agent.dockerfile
-    image: agent
-    stdin_open: true
-    tty: true
-    environment:
-      - DISPLAY=$DISPLAY
-      - QT_X11_NO_MITSHM=1
-    privileged: true
-    # entrypoint: /opt/workspace/scripts/agent.sh
-    entrypoint: bash
-    volumes:
-      - .:/opt/workspace
-    network_mode: host
-    working_dir: /opt/workspace
-    # networks:
-    #   - local
-    #   # local:
-    #   #   ipv4_address: 192.168.0.2
-  core:
-    image: agent
-    stdin_open: true
-    tty: true
-    entrypoint: /opt/workspace/scripts/core.sh
-    volumes:
-      - .:/opt/workspace
-    environment:
-      - DISPLAY=$DISPLAY
-      - QT_X11_NO_MITSHM=1
-    privileged: true
-    network_mode: host
-    working_dir: /opt/workspace
-    # networks:
-    #   local:
-    #     ipv4_address: 192.168.1.2
-
   dev:
     build:
       dockerfile: ./dockers/dev.dockerfile
     image: dev
+    depends_on:
+      - ros-and-rust
     stdin_open: true
     tty: true
     environment:
@@ -76,29 +43,6 @@ services:
     network_mode: host
     working_dir: /home/user/workspace/zenoh-bridge-dds-test
     entrypoint: /home/user/workspace/zenoh-bridge-dds-test/scripts/dev.sh
-    # networks:
-    #   - local
-    #   # local:
-    #   #   ipv4_address: 192.168.0.2
-  zenoh-build:
-    build:
-      dockerfile: ./dockers/zenoh-test.dockerfile
-
-  zenoh-bridge-dds-router:
-    build:
-      dockerfile: ./dockers/zenoh-bridge-dds-router.dockerfile
-    image: zenoh-bridge-dds-router
-    stdin_open: true
-    tty: true
-    environment:
-      - DISPLAY=$DISPLAY
-      - QT_X11_NO_MITSHM=1
-    privileged: true
-    entrypoint: /opt/workspace/scripts/zenoh-bridge-dds-router.sh
-    volumes:
-      - .:/opt/workspace
-    network_mode: host
-    working_dir: /opt/workspace
     # networks:
     #   - local
     #   # local:
