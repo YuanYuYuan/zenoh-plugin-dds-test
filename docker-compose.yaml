@@ -1,37 +1,29 @@
 version: '0.1.0'
 services:
-  ros-base:
+
+  build-ros-base:
     build:
       dockerfile: ./dockers/ros-base.dockerfile
     image: ros-base
-    stdin_open: true
-    tty: true
-    environment:
-      - DISPLAY=$DISPLAY
-      - QT_X11_NO_MITSHM=1
-    privileged: true
-    entrypoint: bash
-    network_mode: host
-  ros-and-rust:
+
+  build-ros-and-rust:
     build:
       dockerfile: ./dockers/ros-and-rust.dockerfile
-    depends_on:
-      - ros-base
     image: ros-and-rust
-    stdin_open: true
-    tty: true
-    environment:
-      - DISPLAY=$DISPLAY
-      - QT_X11_NO_MITSHM=1
-    privileged: true
-    entrypoint: bash
-    network_mode: host
-  dev:
+    depends_on:
+      - build-ros-base
+
+  build-dev:
     build:
       dockerfile: ./dockers/dev.dockerfile
     image: dev
     depends_on:
-      - ros-and-rust
+      - build-ros-and-rust
+
+  dev-base:
+    depends_on:
+      - build-dev
+    image: dev
     stdin_open: true
     tty: true
     environment:
@@ -39,19 +31,78 @@ services:
       - QT_X11_NO_MITSHM=1
     privileged: true
     volumes:
-      - .:/home/user/workspace/zenoh-bridge-dds-test
-    network_mode: host
-    working_dir: /home/user/workspace/zenoh-bridge-dds-test
-    entrypoint: /home/user/workspace/zenoh-bridge-dds-test/scripts/dev.sh
-    # networks:
-    #   - local
-    #   # local:
-    #   #   ipv4_address: 192.168.0.2
+      - .:/home/user/workspace/zenoh-plugin-dds-test
+    working_dir: /home/user/workspace/zenoh-plugin-dds-test
+    entrypoint: /home/user/workspace/zenoh-plugin-dds-test/scripts/dev.sh
 
-# networks:
-#   local:
-#     driver: bridge
-#     ipam:
-#       driver: default
-#       config:
-#         - subnet: 192.168.0.1/16
+  dev-network-host:
+    extends: dev-base
+    network_mode: host
+
+  dev-network-bridge:
+    extends: dev-base
+    dns:
+      - 8.8.8.8
+    networks:
+      local:
+        ipv4_address: 192.168.0.5
+
+  dev-network-NAT1:
+    extends: dev-base
+    networks:
+      - local
+      - N1
+
+  dev-network-NAT2:
+    extends: dev-base
+    networks:
+      - local
+      - N2
+
+  # C1:
+  #   build:
+  #     dockerfile: ./dockers/dev.dockerfile
+  #   image: dev
+  #   depends_on:
+  #     - ros-and-rust
+  #   stdin_open: true
+  #   tty: true
+  #   environment:
+  #     - DISPLAY=$DISPLAY
+  #     - QT_X11_NO_MITSHM=1
+  #   privileged: true
+  #   volumes:
+  #     - .:/home/user/workspace/zenoh-plugin-dds-test
+  #   working_dir: /home/user/workspace/zenoh-plugin-dds-test
+  #   entrypoint: /home/user/workspace/zenoh-plugin-dds-test/scripts/dev.sh
+  #   # network_mode: host
+  #   dns:
+  #     - 8.8.8.8
+  #   networks:
+  #   - N1
+
+networks:
+  local:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.1/8
+  N1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.34.0.0/8
+  N2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 152.35.0.0/8
+  # N2:
+  #   driver: bridge
+  #   ipam:
+  #     driver: default
+  #     config:
+  #       - subnet: 192.168.0.1/16

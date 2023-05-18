@@ -38,7 +38,7 @@ WORKDIR /home/${USERNAME}
 # Setup ROS2
 # RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
-RUN echo "source /opt/workspace/install/setup.bash" >> ~/.bashrc
+# RUN echo "source /opt/workspace/install/setup.bash" >> ~/.bashrc
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
