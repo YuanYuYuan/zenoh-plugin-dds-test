@@ -28,10 +28,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let duration = std::time::Duration::from_millis(500);
     let mut timer = node.create_wall_timer(duration)?;
 
-    let sub = node.subscribe::<r2r::std_msgs::msg::String>(&sub_topic, QosProfile::default())?;
+    let qos = QosProfile::default().keep_all().reliable().transient_local();
+    let sub = node.subscribe::<r2r::std_msgs::msg::String>(&sub_topic, qos.clone())?;
 
     let publisher =
-        node.create_publisher::<r2r::std_msgs::msg::String>(&pub_topic, QosProfile::default())?;
+        node.create_publisher::<r2r::std_msgs::msg::String>(&pub_topic, qos)?;
 
     let handle = async_std::task::spawn_blocking(move || loop {
         node.spin_once(std::time::Duration::from_millis(100));
