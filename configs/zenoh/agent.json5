@@ -1,0 +1,78 @@
+{
+  plugins: {
+    ////
+    //// DDS related configuration
+    //// All settings are optional and are unset by default - uncomment the ones you want to set
+    ////
+    dds: {
+      ////
+      //// domain: The DDS Domain ID. By default set to 0, or to "$ROS_DOMAIN_ID" is this environment variable is defined.
+      ////
+      domain: 0,
+
+      ////
+      //// localhost_only: If set to true, the DDS discovery and traffic will occur only on the localhost interface (127.0.0.1).
+      ////                 By default set to false, unless the "ROS_LOCALHOST_ONLY=1" environment variable is defined.
+      ////
+      // localhost_only: true,
+
+      ////
+      //// group_member_id: A custom identifier for the bridge, that will be used in group management
+      ////                  (if not specified, the zenoh UUID is used).
+      ////
+      group_member_id: "agent",
+
+      ////
+      //// allow: 1 or more regular expression matching the set of 'partition/topic-name' that must be routed via zenoh.
+      ////        By default, all partitions and topics are allowed.
+      ////        If both 'allow' and 'deny' are set a partition and/or topic will be allowed if it matches only the 'allow' expression.
+      ////        Repeat this option to configure several topic expressions. These expressions are concatenated with '|'.
+      ////        Examples (the last 2 are equivalent):
+      ////           allow: ".*/TopicA",
+      ////           allow: "Partition-?/.*",
+      ////           allow: ["cmd_vel", "rosout"]
+      ////           allow: "cmd_vel|rosout"
+      ////
+      allow: [
+        "ZenohTestTopic",
+      ],
+
+    },
+
+  },
+
+  ////
+  //// mode: The bridge's mode (peer or client)
+  ////
+  mode: "peer",
+
+  ////
+  //// Which endpoints to connect to. E.g. tcp/localhost:7447.
+  //// By configuring the endpoints, it is possible to tell zenoh which router/peer to connect to at startup.
+  ////
+  connect: {
+    endpoints: [
+      // "quic/core-domain:7447",
+      "tcp/127.0.0.1:7447",
+    ]
+  },
+
+  /// Configure the scouting mechanisms and their behaviours
+  scouting: {
+    multicast: {
+      /// Whether multicast scouting is enabled or not
+      enabled: false,
+    },
+  },
+
+  /// Configure internal transport parameters
+  transport: {
+    link: {
+      /// Configure the zenoh TX parameters of a link
+      tx: {
+        /// Link lease duration in milliseconds to announce to other zenoh nodes
+        lease: 300000,
+      },
+    },
+  },
+}
