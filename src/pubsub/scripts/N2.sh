@@ -2,7 +2,7 @@
 
 # export ROS_DOMAIN_ID=2
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/va2.xml
+export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/agent2.xml
 
 
 # ros2 run demo_nodes_cpp listener

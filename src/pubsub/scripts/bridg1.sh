@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/va1.xml
+export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/agent1.xml
 
 set -x
 

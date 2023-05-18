@@ -1,0 +1,18 @@
+<CycloneDDS
+    xmlns="https://cdds.io/config"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/releases/0.7.x/etc/cyclonedds.xsd"
+>
+    <Domain Id="0">
+        <General>
+            <NetworkInterfaceAddress>127.0.0.1</NetworkInterfaceAddress>
+        </General>
+        <Discovery>
+            <Tag>Agent2</Tag>
+        </Discovery>
+        <Tracing>
+            <Verbosity>config</Verbosity>
+            <OutputFile>stdout</OutputFile>
+        </Tracing>
+    </Domain>
+</CycloneDDS>

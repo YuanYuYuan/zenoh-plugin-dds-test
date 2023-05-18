@@ -3,7 +3,7 @@
 set -x
 
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/va2.xml
+export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/cdds/agent2.xml
 # /home/user/workspace/zenoh-plugin-dds/target/release/zenoh-bridge-dds \
 #     --domain 0 \
 #     --mode client \
