@@ -6,11 +6,6 @@
 
 To install Docker on Ubuntu 20.04, please refer to [here](doc/install-docker-on-ubuntu-2004.md).
 
-### Building
-
-```bash
-docker compose build
-```
 
 ## Network Environment Pressure Test
 

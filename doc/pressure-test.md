@@ -7,7 +7,7 @@ We can do the following several tests.
 
 ### Preparation
 
-- Install the docker. Check [here](https://github.com/yuanyuyuan/zenoh-plugin-dds-test/#build-the-image).
+- Install the docker. Check [here](https://github.com/yuanyuyuan/zenoh-plugin-dds-test/#installation).
 - Build the testing docker
     ```bash
     docker compose build dev-network-host
