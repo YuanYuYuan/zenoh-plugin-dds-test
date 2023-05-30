@@ -1,32 +1,31 @@
 # Zenoh Plugin DDS Testbed
 
-## Build the image
+## Docker Setup
+
+### Installation
+
+To install Docker on Ubuntu 20.04, please refer to [here](doc/install-docker-on-ubuntu-2004.md).
+
+### Building
 
 ```bash
 docker compose build
 ```
 
+## Network Environment Pressure Test
 
-## Run the test
+Please refer to [here](doc/pressure-test.md)
 
-Terminal 1
-
-Launch one core and 32 agents
-
-```bash
-docker compose up --scale agent=32
-```
-
-Terminal 2
-
-Check CPU & memory usage
+Assuming that we have two machines M1 and M2,
+and we want to check if the network between the machines is healthy.
+We can do the following several tests.
 
 ```bash
-docker stats
+docker
 ```
 
-## Stop the test
+## Large Fleet Management Simulation
 
-```bash
-docker compose down
-```
+:warning: **Work In Progress** :warning:
+
+Please refer to [here](doc/large-fleet-management-simulation.md)
