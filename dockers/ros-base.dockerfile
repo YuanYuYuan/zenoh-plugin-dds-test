@@ -17,7 +17,7 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 RUN dpkg-reconfigure --frontend noninteractive tzdata
 
 # Install some utilities
-RUN apt install -y iproute2 iputils-ping tmux zsh htop wireshark tshark heaptrack heaptrack-gui stow clang llvm
+RUN apt install -y iproute2 iputils-ping iperf3 tmux zsh htop wireshark tshark heaptrack heaptrack-gui stow clang llvm
 
 # CycloneDDS RMW
 # # RUN apt install ros-humble-rmw-cyclonedds-cpp -y
