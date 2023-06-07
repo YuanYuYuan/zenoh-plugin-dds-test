@@ -3,9 +3,9 @@ use futures::future;
 use futures::future::join_all;
 use futures::stream::StreamExt;
 use r2r::QosProfile;
-use r2r::{builtin_interfaces::msg::Time, sensor_msgs::msg::PointCloud2, std_msgs::msg::Header};
+use r2r::{sensor_msgs::msg::PointCloud2, std_msgs::msg::Header};
 use r2r::{Clock, ClockType};
-use chrono::prelude::*;
+use chrono::SecondsFormat;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -61,13 +61,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         async move {
             let mut clock = Clock::create(ClockType::RosTime).unwrap();
             sub.for_each(|msg| {
-                // println!("[{c_node_name}]: received {data}");
-
-                // let ch = chrono::Duration::from_std(clock.get_now().unwrap()).unwrap();
                 let now = clock.get_now().unwrap().as_nanos();
                 let stamp = msg.header.stamp.sec as u128 * 1_000_000_000 + msg.header.stamp.nanosec as u128;
                 println!(
-                    "[{:?}]: {} received {} of {} bytes sent at {:?}",
+                    "[{}] {} received {} of {} bytes sent at {}",
                     into_rfc3339(now.try_into().unwrap()),
                     &node_name,
                     &msg.header.frame_id,
