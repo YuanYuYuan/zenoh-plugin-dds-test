@@ -20,6 +20,24 @@ services:
     depends_on:
       - build-ros-and-rust
 
+  build-pubsub-test:
+    build:
+      dockerfile: ./dockers/pubsub-test.dockerfile
+    image: pubsub-test
+    depends_on:
+      - build-ros-and-rust
+
+  pubsub-test:
+    image: pubsub-test
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - QT_X11_NO_MITSHM=1
+    privileged: true
+    working_dir: /home/user/workspace/zenoh-plugin-dds-test
+    entrypoint: bash
+
   dev-base:
     depends_on:
       - build-dev
