@@ -6,6 +6,6 @@ export CYCLONEDDS_URI=file:///home/user/workspace/zenoh-plugin-dds-test/configs/
 
 # ros2 run demo_nodes_cpp talker
 
-./target/release/pubsub -p /ZenohTestTopicA -s /ZenohTestTopicB -n N1
+./target/release/pubsub_pcd -p /ZenohTestTopicA -s /ZenohTestTopicB -n N1 --payload-size 1048576
 # ./target/release/pubsub -p /A -s /B -n N1
 # ./target/release/pubsub -p /DataReq_Msg -s /DataReply_Msg -n N1

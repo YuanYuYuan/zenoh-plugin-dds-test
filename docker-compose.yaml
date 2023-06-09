@@ -63,7 +63,7 @@ services:
       - 8.8.8.8
     networks:
       local:
-        ipv4_address: 192.168.0.5
+        ipv4_address: 193.168.0.5
 
   dev-network-NAT1:
     extends: dev-base
@@ -105,19 +105,19 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.0.1/8
+        - subnet: 193.168.0.1/8
   N1:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.34.0.0/8
+        - subnet: 173.34.0.0/8
   N2:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 152.35.0.0/8
+        - subnet: 153.35.0.0/8
   # N2:
   #   driver: bridge
   #   ipam:
