@@ -13,19 +13,19 @@ services:
     depends_on:
       - build-ros-base
 
-  build-dev:
-    build:
-      dockerfile: ./dockers/dev.dockerfile
-    image: dev
-    depends_on:
-      - build-ros-and-rust
-
   build-pubsub-test:
     build:
       dockerfile: ./dockers/pubsub-test.dockerfile
     image: pubsub-test
     depends_on:
       - build-ros-and-rust
+
+  build-dev:
+    build:
+      dockerfile: ./dockers/dev.dockerfile
+    image: dev
+    depends_on:
+      - build-pubsub-test
 
   pubsub-test:
     image: pubsub-test
@@ -50,7 +50,7 @@ services:
     privileged: true
     volumes:
       - .:/home/user/workspace/zenoh-plugin-dds-test
-    working_dir: /home/user/workspace/zenoh-plugin-dds-test
+    working_dir: /home/user/workspace/zenoh-plugin-dds-test/src/pubsub
     entrypoint: /home/user/workspace/zenoh-plugin-dds-test/scripts/dev.sh
 
   dev-network-host:

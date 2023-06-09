@@ -75,6 +75,13 @@ sudo ping HOST1_IP -t 0 2>&1 | tee logs/ping/$(date +%F-%T).txt
 
 ### Zenoh-bridge-dds
 
+- Build pubsub test
+
+```bash
+cargo build --release --bin pubsub_pcd
+```
+
+
 Host 1
 
 1. ROS Node
@@ -132,19 +139,19 @@ Successful results
 - N1
 
     ```bash
-    [N1]: received message 447 from N2
-    [N1]: received message 448 from N2
-    [N1]: received message 449 from N2
-    [N1]: received message 450 from N2
-    [N1]: received message 451 from N2
+    [2023-06-09T09:10:56.159Z] N1 received PCD #76 from N2 of 1048576 bytes sent at 2023-06-09T09:10:56.144Z
+    [2023-06-09T09:10:56.651Z] N1 received PCD #77 from N2 of 1048576 bytes sent at 2023-06-09T09:10:56.644Z
+    [2023-06-09T09:10:57.156Z] N1 received PCD #78 from N2 of 1048576 bytes sent at 2023-06-09T09:10:57.144Z
+    [2023-06-09T09:10:57.650Z] N1 received PCD #79 from N2 of 1048576 bytes sent at 2023-06-09T09:10:57.644Z
+    [2023-06-09T09:10:58.157Z] N1 received PCD #80 from N2 of 1048576 bytes sent at 2023-06-09T09:10:58.144Z
     ```
 
 - N2
 
     ```bash
-    [N2]: received message 450 from N1
-    [N2]: received message 451 from N1
-    [N2]: received message 452 from N1
-    [N2]: received message 453 from N1
-    [N2]: received message 454 from N1
+    [2023-06-09T09:11:09.748Z] N2 received PCD #111 from N1 of 1048576 bytes sent at 2023-06-09T09:11:09.736Z
+    [2023-06-09T09:11:10.250Z] N2 received PCD #112 from N1 of 1048576 bytes sent at 2023-06-09T09:11:10.236Z
+    [2023-06-09T09:11:10.742Z] N2 received PCD #113 from N1 of 1048576 bytes sent at 2023-06-09T09:11:10.736Z
+    [2023-06-09T09:11:11.246Z] N2 received PCD #114 from N1 of 1048576 bytes sent at 2023-06-09T09:11:11.236Z
+    [2023-06-09T09:11:11.745Z] N2 received PCD #115 from N1 of 1048576 bytes sent at 2023-06-09T09:11:11.736Z
     ```
