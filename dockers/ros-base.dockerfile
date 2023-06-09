@@ -38,4 +38,4 @@ WORKDIR /home/${USERNAME}
 # Setup ROS2
 # RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
-RUN echo "source /opt/workspace/install/setup.bash" >> ~/.bashrc
+# RUN echo "source /opt/workspace/install/setup.bash" >> ~/.bashrc
