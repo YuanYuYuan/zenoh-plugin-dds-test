@@ -29,14 +29,14 @@ Host 1
 
 ```bash
 mkdir -p logs/ping
-sudo ping HOST2_IP -t 0 2>&1 | tee logs/ping/$(date +%F-%T).txt
+sudo ping HOST2_IP -i 0 2>&1 | tee logs/ping/$(date +%F-%T).txt
 ```
 
 Host 2
 
 ```bash
 mkdir -p logs/ping
-sudo ping HOST1_IP -t 0 2>&1 | tee logs/ping/$(date +%F-%T).txt
+sudo ping HOST1_IP -i 0 2>&1 | tee logs/ping/$(date +%F-%T).txt
 ```
 
 ### Iperf3
